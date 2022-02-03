@@ -85,7 +85,7 @@ function formatData(detailDataArr){
     for(const detail of detailDataArr){
         const result = {
         }
-        result['date'] = (new Date(detail.dateDetails)).toISOString()
+        result['date'] = (new Date(detail.dateDetails))
         result['numbers'] = detail.winningNumber.map(number => {
             if(number < 10 && number != 0){
                 return '0'+number
@@ -124,7 +124,7 @@ function createFiles(){
 async function addToDatabase(dbPath,data){
     const oldData = await getDatabase(dbPath)
     for(const singleData of data){
-        if(!oldData.some(singleOldData => singleOldData.date == singleData.date && singleOldData.numbers == singleData.numbers)){
+        if(!oldData.some(singleOldData =>  (new Date(singleOldData.date.seconds)).getTime().toString() == (new Date(singleData.date)).getTime().toString().slice(0,10) && singleOldData.numbers == singleData.numbers)){
             await addDoc(collection(db, dbPath),singleData)
         }
     }
