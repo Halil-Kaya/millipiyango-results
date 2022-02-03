@@ -31,6 +31,7 @@ async function getData(date){
     const superloto = []
     createFiles()
     const splitedDate = date.split('.')
+    const year = splitedDate[splitedDate.length-1]
     let today = null
     if(splitedDate.length == 3){
         date = splitedDate[1] + '.' + splitedDate[2]
@@ -44,22 +45,22 @@ async function getData(date){
         let result = null;
         switch(data.lotteryName){
             case "SAYISAL":
-                const sayisalDetailUrl = `https://www.millipiyangoonline.com/sisalsans/drawdetails.sayisaloto.${data.drawnNr}.2022.json`
+                const sayisalDetailUrl = `https://www.millipiyangoonline.com/sisalsans/drawdetails.sayisaloto.${data.drawnNr}.${year}.json`
                 result = (await axios.get(sayisalDetailUrl)).data
                 sayisal.push(result)
                 break;
             case "SANSTOPU":
-                const sanstopuDetailUrl = `https://www.millipiyangoonline.com/sisalsans/drawdetails.sanstopu.${data.drawnNr}.2022.json`
+                const sanstopuDetailUrl = `https://www.millipiyangoonline.com/sisalsans/drawdetails.sanstopu.${data.drawnNr}.${year}.json`
                 result = (await axios.get(sanstopuDetailUrl)).data
                 sanstopu.push(result)
                 break;
             case "SUPERLOTO":
-                const superlotoDetailUrl = `https://www.millipiyangoonline.com/sisalsans/drawdetails.superloto.${data.drawnNr}.2022.json`
+                const superlotoDetailUrl = `https://www.millipiyangoonline.com/sisalsans/drawdetails.superloto.${data.drawnNr}.${year}.json`
                 result = (await axios.get(superlotoDetailUrl)).data
                 superloto.push(result)
                 break;
             case "ONNUMARA":
-                const onnumaraDetailUrl = `https://www.millipiyangoonline.com/sisalsans/drawdetails.onnumara.${data.drawnNr}.2022.json`
+                const onnumaraDetailUrl = `https://www.millipiyangoonline.com/sisalsans/drawdetails.onnumara.${data.drawnNr}.${year}.json`
                 result = (await axios.get(onnumaraDetailUrl)).data
                 onnumara.push(result)
                 break;
@@ -139,4 +140,4 @@ async function getDatabase(dbPath){
     return oldData
 }
 
-getData("1.2022")
+getData("1.2021")
